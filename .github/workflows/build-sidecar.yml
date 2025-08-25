@@ -26,12 +26,6 @@ jobs:
             -p:PublishSingleFile=true \
             -o ./publish
 
-      - name: Upload single sidecar artifact
-        uses: actions/upload-artifact@v4
-        with:
-          name: server
-          path: ./publish/server*
-
       # Create or use release and upload asset
       - name: Create GitHub Release
         uses: softprops/action-gh-release@v1
