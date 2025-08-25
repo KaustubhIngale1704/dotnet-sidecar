@@ -26,24 +26,9 @@ jobs:
             -p:PublishSingleFile=true \
             -o ./publish
 
-      - name: 'Get Previous tag'
-        id: previous_tag
-        uses: "WyriHaximus/github-action-get-previous-tag@v1"
-        with:
-          fallback: 1.0.0
-
-      # Create or use release and upload asset
-      - name: Create GitHub Release
-        uses: softprops/action-gh-release@v1
-        with:
-          tag_name: ${{steps.previous_tag.outputs.tag}}
-          files: ${{steps.sign_app.outputs.signedReleaseFile}}
+      - name: Create or update release
+        run: |
+          gh release view latest || gh release create latest --title "Latest Sidecar Release" --notes "Automated build"
+          gh release upload latest ./publish/server* --clobber
         env:
-          GITHUB_TOKEN: ${{ secrets.GH_PAT }}
-
-      - name: Upload sidecar to release
-        uses: softprops/action-gh-release@v1
-        with:
-          files: ./publish/server*
-        env:
-          GITHUB_TOKEN: ${{ secrets.GH_PAT }}
+          GH_TOKEN: ${{ secrets.GH_PAT }}
