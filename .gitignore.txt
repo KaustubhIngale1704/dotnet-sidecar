@@ -1,0 +1,14 @@
+# Visual Studio
+.vs/
+*.user
+*.suo
+*.userosscache
+*.sln.docstates
+
+# Build output
+bin/
+obj/
+
+# Dotnet temporary files
+*.dbmdl
+*.log
