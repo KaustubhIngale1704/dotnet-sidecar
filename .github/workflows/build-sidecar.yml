@@ -38,11 +38,11 @@ jobs:
         with:
           tag_name: v1.0.0   # or dynamically from git tag
         env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          GITHUB_TOKEN: ${{ secrets.GH_PAT }}
 
       - name: Upload sidecar to release
         uses: softprops/action-gh-release@v1
         with:
           files: ./publish/server*
         env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          GITHUB_TOKEN: ${{ secrets.GH_PAT }}
