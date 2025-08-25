@@ -28,7 +28,10 @@ jobs:
 
       - name: Create or update release
         run: |
-          gh release view latest || gh release create latest --title "Latest Sidecar Release" --notes "Automated build"
-          gh release upload latest ./publish/server* --clobber
+          gh release create v1.0.0 ./publish/server \
+            --title "Sidecar v1.0.0" \
+            --notes "Automated build of sidecar v1.0.0" \
+            --clobber
+
         env:
           GH_TOKEN: ${{ secrets.GH_PAT }}
