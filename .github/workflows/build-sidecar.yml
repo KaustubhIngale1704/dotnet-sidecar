@@ -26,9 +26,18 @@ jobs:
             -p:PublishSingleFile=true \
             -o ./publish
 
+      - name: 'Get Previous tag'
+        id: previous_tag
+        uses: "WyriHaximus/github-action-get-previous-tag@v1"
+        with:
+          fallback: 1.0.0
+
       # Create or use release and upload asset
       - name: Create GitHub Release
-        run: hub release create release_name -m release_message -a sidecar_build_artifact.zip
+        uses: softprops/action-gh-release@v1
+        with:
+          tag_name: ${{steps.previous_tag.outputs.tag}}
+          files: ${{steps.sign_app.outputs.signedReleaseFile}}
         env:
           GITHUB_TOKEN: ${{ secrets.GH_PAT }}
 
