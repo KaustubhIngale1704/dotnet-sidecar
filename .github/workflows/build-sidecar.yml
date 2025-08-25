@@ -31,3 +31,18 @@ jobs:
         with:
           name: server
           path: ./publish/server*
+
+      # Create or use release and upload asset
+      - name: Create GitHub Release
+        uses: softprops/action-gh-release@v1
+        with:
+          tag_name: v1.0.0   # or dynamically from git tag
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Upload sidecar to release
+        uses: softprops/action-gh-release@v1
+        with:
+          files: ./publish/server*
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
